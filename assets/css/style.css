@@ -64,3 +64,15 @@ li {
 .btn {
   min-width: 120px;
 }
+
+#character {
+  cursor: pointer
+}
+
+#character:hover {
+  background-color: #ffc107;
+}
+
+button {
+  cursor: pointer
+}
