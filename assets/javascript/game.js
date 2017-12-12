@@ -11,69 +11,68 @@ var lightsaber
 var blaster
 
 // object for player HP and AP
-var players = {
-  luke = {
-    hp = 120,
-    ap = {
-    force = ,
-    lightsaber = ,
-    blaster = ,
-  }
-  },
-  yoda = {
-    hp = 150,
-    ap = {
-    force = ,
-    lightsaber = ,
-    blaster = ,
-  }
-  },
-  obi = {
-    hp = 110,
-    ap = {
-    force = ,
-    lightsaber = ,
-    blaster = ,
-  }
-  },
-  maul = {
-    hp = 120,
-    ap = {
-    force = ,
-    lightsaber = ,
-    blaster = ,
-  }
-  },
-  vader = {
-    hp = 130,
-    ap = {
-    force = ,
-    lightsaber = ,
-    blaster = ,
-  }
-  },
-  sidious = {
-    hp = 140,
-    ap = {
-    force = ,
-    lightsaber = ,
-    blaster = ,
-  }
-  }
+var  luke = {
+    hp: 120,
+    force: 5,
+    lightsaber: 15,
+    blaster: 10,
 }
 
+var yoda = {
+    hp: 150,
+    force: 15,
+    lightsaber: 5,
+    blaster: 10,
+  }
+
+var obi = {
+    hp: 110,
+    force: 10,
+    lightsaber: 5,
+    blaster: 15,
+  }
+
+var maul = {
+    hp: 120,
+    force: 5,
+    lightsaber: 10,
+    blaster: 15,
+  }
+
+var vader = {
+    hp: 130,
+    force: 10,
+    lightsaber: 15,
+    blaster: 5,
+  }
+
+var sidious = {
+    hp: 140,
+    force: 15,
+    lightsaber: 10,
+    blaster: 5,
+  }
+
 // game initilizer and restart
-/*function initializeGame() {
-  hp = ""
-  didWin = false
-  choosePlayer = false
-  chooseEnemy = false
-}*/
+//function initializeGame() {
+  //hp = ""
+  //didWin = false
+  //choosePlayer = false
+  //chooseEnemy = false
+$("#lukehp").html("HP: " + luke.hp)
+$("#yodahp").html("HP: " + yoda.hp)
+$("#obihp").html("HP: " + obi.hp)
+$("#maulhp").html("HP: " + maul.hp)
+$("#vaderhp").html("HP: " + vader.hp)
+$("#sidioushp").html("HP: " + sidious.hp)
+//}
 
 // event listen click on each card
 var choosePlayer = $("#character").on('click', function() {
   alert('clicked')
 })
+
+//initializeGame()
   // if choose player, then
 //if (choosePlayer) {
     //move to the arena
