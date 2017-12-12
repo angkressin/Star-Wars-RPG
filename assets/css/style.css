@@ -60,3 +60,7 @@ li {
 .list-group-item {
     padding: .25rem .25rem;
 }
+
+.btn {
+  min-width: 120px;
+}
