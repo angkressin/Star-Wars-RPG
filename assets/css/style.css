@@ -65,11 +65,11 @@ li {
   min-width: 120px;
 }
 
-#character {
+.card {
   cursor: pointer
 }
 
-#character:hover {
+.card:hover {
   background-color: #ffc107;
 }
 
