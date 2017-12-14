@@ -22,44 +22,44 @@ $(document).ready(function() {
     "luke": {
       "name": "Luke Skywalker",
       "hp": 120,
-      "force": 5,
-      "lightsaber": 15,
-      "blaster": 10
+      "force": 2,
+      "lightsaber": 10,
+      "blaster": 6
     },
     "yoda": {
       "name": "Yoda",
       "hp": 150,
-      "force": 15,
-      "lightsaber": 5,
-      "blaster": 10
+      "force": 13,
+      "lightsaber": 7,
+      "blaster": 2
     },
     "obi": {
       "name": "Obi-Wan Kenobi",
       "hp": 110,
       "force": 10,
       "lightsaber": 5,
-      "blaster": 15
+      "blaster": 13
     },
     "maul": {
       "name": "Darth Maul",
       "hp": 120,
-      "force": 5,
-      "lightsaber": 10,
-      "blaster": 15
+      "force": 2,
+      "lightsaber": 8,
+      "blaster": 16
     },
     "vader": {
       "name": "Darth Vader",
       "hp": 130,
-      "force": 10,
-      "lightsaber": 15,
-      "blaster": 5
+      "force": 15,
+      "lightsaber": 18,
+      "blaster": 1
     },
     "sidious": {
       "name": "Darth Sidious",
       "hp": 140,
-      "force": 15,
-      "lightsaber": 10,
-      "blaster": 5
+      "force": 17,
+      "lightsaber": 7,
+      "blaster": 3
     },
   }
 
@@ -76,7 +76,6 @@ $(document).ready(function() {
     chooseChar = true
     // set userChar to the selected character
   }
-
 
 
   function selectEnemy(x) {
@@ -112,12 +111,29 @@ $(document).ready(function() {
     }
   }
 
-  // game initilizer and restart
+  function removeUserID() {
+    if (userChar["name"] === "Luke Skywalker") {
+      $("#luke").remove()
+    } else if (userChar["name"] === "Yoda") {
+      $("#yoda").remove()
+    } else if (userChar["name"] === "Obi-Wan Kenobi") {
+      $("#obi").remove()
+    } else if (userChar["name"] === "Darth Maul") {
+      $("#maul").remove()
+    } else if (userChar["name"] === "Darth Vader") {
+      $("#vader").remove()
+    } else if (userChar["name"] === "Darth Sidious") {
+      $("#sidious").remove()
+    }
+  }
+
+  // game initilizer
   function initializeGame() {
     didWin = false
     chooseChar = false
     chooseEnemy = false
     printHP()
+    $(".btn-dark").hide();
     $(".card").click(function() {
       if (chooseChar === false) {
         //call the selectChar function to set userChar equal to the character the user selects
@@ -140,11 +156,21 @@ $(document).ready(function() {
       if (chooseEnemy === false) {
         //call the selectEnemy function to set cpuChar equal to the opponent the user selects
         selectEnemy(this)
-        console.log("Test Click")
+      } else {
+        if ( $('.enemy').children().length == 0 ) {
+	      console.log('enemy dev has no content anymore')
+}
       }
     })
     console.log("New Round")
   }
+
+   function gameOver() {
+   chooseChar = true
+    $(".btn-dark").click(function() {
+        location.reload();
+    })
+ }
 
   function getUserAction(x) {
     userAction = x.id
@@ -174,9 +200,8 @@ $(document).ready(function() {
       applyCpuAction()
     } else {
       didWin = true
-      var enemyID = $('#' + cpuChar["name"]);
       removeCharID()
-      $(".outputHero").html("Congrats! You beat " + cpuChar["name"] + ". Select another character to beat.")
+      $(".outputHero").html("Congrats! You beat " + cpuChar["name"] + ". Select another character to fight.")
       $(".outputEnemy").html("")
       initializeNextRound()
     }
@@ -191,7 +216,12 @@ $(document).ready(function() {
       console.log("subtracting user life", userChar["hp"])
     } else {
       didWin = false
-      $(".outputHero").html("Congrats! You beat " + cpuChar["name"] + ". Select another character to beat.")
+      removeUserID()
+      $(".btn-dark").show();
+      $(".btn-warning").hide();
+      gameOver()
+      $(".outputHero").html("Sorry! " + cpuChar["name"] + " beat you. Click the 'restart' button if you would like to play again.")
+      $(".outputEnemy").html("")
     }
   }
 
