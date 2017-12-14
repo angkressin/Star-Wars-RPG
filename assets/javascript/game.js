@@ -16,6 +16,7 @@ $(document).ready(function() {
   var cpuAttackValue
   var accumUserAttackValue
   var charactersHP
+  var winCounter
 
   characters = {
     "luke": {
@@ -81,6 +82,7 @@ $(document).ready(function() {
     $(".enemy").append($(x))
     cpuChar = characters[x.id]
     chooseEnemy = true
+    $(".btn-warning").show();
     // set cpuChar to the selected enemy
   }
 
@@ -131,6 +133,7 @@ $(document).ready(function() {
     didWin = false
     chooseChar = false
     chooseEnemy = false
+    winCounter = 0
     printHP()
     $(".btn-dark").hide();
     $(".card").click(function() {
@@ -149,7 +152,9 @@ $(document).ready(function() {
   }
 
   function initializeNextRound() {
+    winCounter++
     chooseEnemy = false
+    $(".btn-warning").hide();
     console.log(chooseEnemy)
     $(".card").click(function() {
       if (chooseEnemy === false) {
@@ -158,6 +163,17 @@ $(document).ready(function() {
       }
     })
     console.log("New Round")
+    console.log('test win counter', winCounter)
+  if (winCounter === 5) {
+    ultWin()
+  }
+  }
+
+  function ultWin() {
+    $(".outputHero").html("Congratulations! You beat " + cpuChar["name"] + " and won the game! Click restart if you would like play again.")
+    $(".outputEnemy").html("")
+    $(".btn-dark").show();
+    gameOver();
   }
 
   function gameOver() {
@@ -200,7 +216,7 @@ $(document).ready(function() {
       $(".outputEnemy").html("")
       initializeNextRound()
     }
-  }
+    }
 
 
   function applyCpuAction() {
@@ -222,3 +238,9 @@ $(document).ready(function() {
   initializeGame()
 
 })
+
+/*
+var winCounter = 0
+when initalize game, set win counter to 0
+in initalize game -check if  win counter = 5, if it is 5 then put it in there.
+*/
