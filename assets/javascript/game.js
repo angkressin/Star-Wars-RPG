@@ -2,7 +2,6 @@ $(document).ready(function() {
 
   // Global vars
   var hp
-  var ap
   var didWin
   var chooseChar
   var chooseEnemy
@@ -94,7 +93,7 @@ $(document).ready(function() {
     $("#sidioushp").html("HP: " + characters["sidious"]["hp"])
   }
 
-// ASK ABOUT A BETTER WAY TO DO THIS
+  // ASK ABOUT A BETTER WAY TO DO THIS
   function removeCharID() {
     if (cpuChar["name"] === "Luke Skywalker") {
       $("#luke").remove()
@@ -156,21 +155,17 @@ $(document).ready(function() {
       if (chooseEnemy === false) {
         //call the selectEnemy function to set cpuChar equal to the opponent the user selects
         selectEnemy(this)
-      } else {
-        if ( $('.enemy').children().length == 0 ) {
-	      console.log('enemy dev has no content anymore')
-}
       }
     })
     console.log("New Round")
   }
 
-   function gameOver() {
-   chooseChar = true
+  function gameOver() {
+    chooseChar = true
     $(".btn-dark").click(function() {
-        location.reload();
+      location.reload();
     })
- }
+  }
 
   function getUserAction(x) {
     userAction = x.id
@@ -209,12 +204,11 @@ $(document).ready(function() {
 
 
   function applyCpuAction() {
-    if (userChar["hp"] > 0) {
-      userChar["hp"] = userChar["hp"] - cpuAttackValue
-      printHP()
-      $(".outputEnemy").html(cpuChar["name"] + " attacked you with " + cpuAction + " for " + cpuAttackValue)
-      console.log("subtracting user life", userChar["hp"])
-    } else {
+    userChar["hp"] = userChar["hp"] - cpuAttackValue
+    printHP()
+    $(".outputEnemy").html(cpuChar["name"] + " attacked you with " + cpuAction + " for " + cpuAttackValue)
+    console.log("subtracting user life", userChar["hp"])
+    if (userChar["hp"] <= 0) {
       didWin = false
       removeUserID()
       $(".btn-dark").show();
