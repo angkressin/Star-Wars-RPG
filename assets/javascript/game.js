@@ -1,188 +1,200 @@
 $(document).ready(function() {
 
-// Global vars
-var hp
-var ap
-var didWin
-var chooseChar
-var chooseEnemy
-var attacks = ["force", "lightsaber", "blaster"]
-var userChar
-var cpuChar
-var characters
-var userAction
-var userAttackValue
-var cpuAction
-var cpuAttackValue
-var accumUserAttackValue
-var charactersHP
+  // Global vars
+  var hp
+  var ap
+  var didWin
+  var chooseChar
+  var chooseEnemy
+  var attacks = ["force", "lightsaber", "blaster"]
+  var origUserAttackValues = {}
+  var userChar
+  var cpuChar
+  var characters
+  var userAction
+  var userAttackValue
+  var cpuAction
+  var cpuAttackValue
+  var accumUserAttackValue
+  var charactersHP
 
-characters = {
-  "luke": {
-    "name": "Luke Skywalker",
-    "hp": 120,
-    "force": 5,
-    "lightsaber": 15,
-    "blaster": 10
-  },
-  "yoda": {
-    "name": "Yoda",
-    "hp": 150,
-    "force": 15,
-    "lightsaber": 5,
-    "blaster": 10
-  },
-  "obi": {
-    "name": "Obi-Won Kenobi",
-    "hp": 110,
-    "force": 10,
-    "lightsaber": 5,
-    "blaster": 15},
-  "maul": {
-    "name": "Darth Maul",
-    "hp": 120,
-    "force": 5,
-    "lightsaber": 10,
-    "blaster": 15
-  },
-  "vader": {
-    "name": "Darth Vader",
-    "hp": 130,
-    "force": 10,
-    "lightsaber": 15,
-    "blaster": 5
-  },
-  "sidious": {
-    "name": "Darth Sidious",
-    "hp": 140,
-    "force": 15,
-    "lightsaber": 10,
-    "blaster": 5
-  },
-}
+  characters = {
+    "luke": {
+      "name": "Luke Skywalker",
+      "hp": 120,
+      "force": 5,
+      "lightsaber": 15,
+      "blaster": 10
+    },
+    "yoda": {
+      "name": "Yoda",
+      "hp": 150,
+      "force": 15,
+      "lightsaber": 5,
+      "blaster": 10
+    },
+    "obi": {
+      "name": "Obi-Wan Kenobi",
+      "hp": 110,
+      "force": 10,
+      "lightsaber": 5,
+      "blaster": 15
+    },
+    "maul": {
+      "name": "Darth Maul",
+      "hp": 120,
+      "force": 5,
+      "lightsaber": 10,
+      "blaster": 15
+    },
+    "vader": {
+      "name": "Darth Vader",
+      "hp": 130,
+      "force": 10,
+      "lightsaber": 15,
+      "blaster": 5
+    },
+    "sidious": {
+      "name": "Darth Sidious",
+      "hp": 140,
+      "force": 15,
+      "lightsaber": 10,
+      "blaster": 5
+    },
+  }
 
-//console.log(characters["luke"]["name"])
+  //console.log(characters["luke"]["name"])
 
-function selectChar(x) {
+  function selectChar(x) {
     $(".hero").append($(x))
     userChar = characters[x.id]
+    for (i = 0; i < attacks.length; i++) {
+      console.log(userChar[i])
+      origUserAttackValues[attacks[i]] = userChar[attacks[i]]
+    }
+    console.log(origUserAttackValues)
     chooseChar = true
     // set userChar to the selected character
-}
+  }
 
-function selectEnemy(x) {
+
+
+  function selectEnemy(x) {
     $(".enemy").append($(x))
     cpuChar = characters[x.id]
     chooseEnemy = true
     // set cpuChar to the selected enemy
-}
-
-function printHP() {
-  $("#lukehp").html("HP: " + characters["luke"]["hp"])
-  $("#yodahp").html("HP: " + characters["yoda"]["hp"])
-  $("#obihp").html("HP: " + characters["obi"]["hp"])
-  $("#maulhp").html("HP: " + characters["maul"]["hp"])
-  $("#vaderhp").html("HP: " + characters["vader"]["hp"])
-  $("#sidioushp").html("HP: " + characters["sidious"]["hp"])
-}
-
-// game initilizer and restart
-function initializeGame() {
-didWin = false
-chooseChar = false
-chooseEnemy = false
-printHP()
-$(".card").click(function() {
-  if (chooseChar === false) {
-    //call the selectChar function to set userChar equal to the character the user selects
-    selectChar(this)
-  } else if (chooseEnemy === false) {
-    //call the selectEnemey function to set cpuChar equal to the opponent the user selects
-    selectEnemy(this)
   }
-})
-$(".btn").click(function() {
-  getUserAction(this)
-  applyUserAction()
-  getCpuAction()
-  applyCpuAction()
-})
-}
 
-function getUserAction(x) {
-  userAction = x.id
-  userAttackValue = userChar[userAction]
-  console.log(userAction)
-  console.log(userAttackValue)
-    // set cpuChar to the selected enemy
-}
-
-function getCpuAction() {
-  var randNum = Math.floor(Math.random() * 3)
-  cpuAction = attacks[randNum]
-  cpuAttackValue = cpuChar[cpuAction]
-  console.log(cpuAction)
-  console.log(cpuAttackValue)
-}
-
-// subtract userAttackValue from cpuChar["hp"]
-function applyUserAction() {
-  if (cpuChar["hp"] > 0) {
-    cpuChar["hp"] = cpuChar["hp"] - userAttackValue
-    printHP()
-    console.log("subtracting cpu life", cpuChar["hp"])
-  } else if (cpuChar["hp"] <= 0) {
-    didWin = true
-    $(".enemy").detach(cpuChar)
+  function printHP() {
+    $("#lukehp").html("HP: " + characters["luke"]["hp"])
+    $("#yodahp").html("HP: " + characters["yoda"]["hp"])
+    $("#obihp").html("HP: " + characters["obi"]["hp"])
+    $("#maulhp").html("HP: " + characters["maul"]["hp"])
+    $("#vaderhp").html("HP: " + characters["vader"]["hp"])
+    $("#sidioushp").html("HP: " + characters["sidious"]["hp"])
   }
-}
 
-function applyCpuAction() {
-  if (userChar["hp"] > 0) {
-    userChar["hp"] = userChar["hp"] - cpuAttackValue
-    printHP()
-    console.log("subtracting user life", userChar["hp"])
-  } else if (userChar["hp"] <= 0) {
+// ASK ABOUT A BETTER WAY TO DO THIS
+  function removeCharID() {
+    if (cpuChar["name"] === "Luke Skywalker") {
+      $("#luke").remove()
+    } else if (cpuChar["name"] === "Yoda") {
+      $("#yoda").remove()
+    } else if (cpuChar["name"] === "Obi-Wan Kenobi") {
+      $("#obi").remove()
+    } else if (cpuChar["name"] === "Darth Maul") {
+      $("#maul").remove()
+    } else if (cpuChar["name"] === "Darth Vader") {
+      $("#vader").remove()
+    } else if (cpuChar["name"] === "Darth Sidious") {
+      $("#sidious").remove()
+    }
+  }
+
+  // game initilizer and restart
+  function initializeGame() {
     didWin = false
+    chooseChar = false
+    chooseEnemy = false
+    printHP()
+    $(".card").click(function() {
+      if (chooseChar === false) {
+        //call the selectChar function to set userChar equal to the character the user selects
+        selectChar(this)
+      } else if (chooseEnemy === false) {
+        //call the selectEnemy function to set cpuChar equal to the opponent the user selects
+        selectEnemy(this)
+      }
+    })
+    $(".btn").click(function() {
+      getUserAction(this)
+      applyUserAction()
+    })
   }
-}
+
+  function initializeNextRound() {
+    chooseEnemy = false
+    console.log(chooseEnemy)
+    $(".card").click(function() {
+      if (chooseEnemy === false) {
+        //call the selectEnemy function to set cpuChar equal to the opponent the user selects
+        selectEnemy(this)
+        console.log("Test Click")
+      }
+    })
+    console.log("New Round")
+  }
+
+  function getUserAction(x) {
+    userAction = x.id
+    userAttackValue = userChar[userAction]
+    console.log(userAction)
+    console.log(userAttackValue)
+    // set cpuChar to the selected enemy
+  }
+
+  function getCpuAction() {
+    var randNum = Math.floor(Math.random() * 3)
+    cpuAction = attacks[randNum]
+    cpuAttackValue = cpuChar[cpuAction]
+    console.log(cpuAction)
+    console.log(cpuAttackValue)
+  }
+
+  // subtract userAttackValue from cpuChar["hp"]
+  function applyUserAction() {
+    cpuChar["hp"] = cpuChar["hp"] - userAttackValue
+    userChar[userAction] = userChar[userAction] + origUserAttackValues[userAction]
+    printHP()
+    if (cpuChar["hp"] > 0) {
+      $(".outputHero").html("You attacked " + cpuChar["name"] + " with " + userAction + " for " + userAttackValue)
+      console.log("subtracting cpu life", cpuChar["hp"])
+      getCpuAction()
+      applyCpuAction()
+    } else {
+      didWin = true
+      var enemyID = $('#' + cpuChar["name"]);
+      removeCharID()
+      $(".outputHero").html("Congrats! You beat " + cpuChar["name"] + ". Select another character to beat.")
+      $(".outputEnemy").html("")
+      initializeNextRound()
+    }
+  }
 
 
+  function applyCpuAction() {
+    if (userChar["hp"] > 0) {
+      userChar["hp"] = userChar["hp"] - cpuAttackValue
+      printHP()
+      $(".outputEnemy").html(cpuChar["name"] + " attacked you with " + cpuAction + " for " + cpuAttackValue)
+      console.log("subtracting user life", userChar["hp"])
+    } else {
+      didWin = false
+      $(".outputHero").html("Congrats! You beat " + cpuChar["name"] + ". Select another character to beat.")
+    }
+  }
 
-// User clicks a button
-  // Determine which button the user clicked using id
-  // Store which button the user clicked to userAction
-  // userAttackValue = userChar[userAction]
-
-
-
-
-
-
-
-  // Figure out cpuAction (which is going to be random)
-    // Pick a random number that is an integer between 0-2 and assign it to randNum
-      // cpuAction = attacks[randNum]
-
-//
-
-
-
-// User chooses tactic (weapon)
-
-
-// computer chooses tactic (weapon)
-
-// compare user and computer choices
-
-// adjust user and computer HP accordingly
-
-// check to see win or lose
-
-// report outcome of HP
-
-// solicit next attack
-
-initializeGame()
+  initializeGame()
 
 })
