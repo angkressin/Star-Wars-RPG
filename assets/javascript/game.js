@@ -95,7 +95,6 @@ $(document).ready(function() {
     $("#sidioushp").html("HP: " + characters["sidious"]["hp"])
   }
 
-  // ASK ABOUT A BETTER WAY TO DO THIS
   function removeCharID() {
     if (cpuChar["name"] === "Luke Skywalker") {
       $("#luke").remove()
@@ -164,9 +163,9 @@ $(document).ready(function() {
     })
     console.log("New Round")
     console.log('test win counter', winCounter)
-  if (winCounter === 5) {
-    ultWin()
-  }
+    if (winCounter === 5) {
+      ultWin()
+    }
   }
 
   function ultWin() {
@@ -216,7 +215,7 @@ $(document).ready(function() {
       $(".outputEnemy").html("")
       initializeNextRound()
     }
-    }
+  }
 
 
   function applyCpuAction() {
@@ -238,9 +237,3 @@ $(document).ready(function() {
   initializeGame()
 
 })
-
-/*
-var winCounter = 0
-when initalize game, set win counter to 0
-in initalize game -check if  win counter = 5, if it is 5 then put it in there.
-*/
